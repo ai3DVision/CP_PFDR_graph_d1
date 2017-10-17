@@ -6,15 +6,16 @@ Parallel implementation with OpenMP API.
 This extension of the [cut-pursuit algorithm](https://github.com/loicland/cut-pursuit) allows to minimize functionals structured over a graph _G_ = (_V_, _E_)
 
     _F_(_x_) = _f_(_x_) + ∑<sub>_v_ ∈ _V_</sub> _g_<sub>_v_</sub>(_x_<sub>_v_</sub>) +
- ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║<i>x</i><sub>_u_</sub> − _x_<sub>_v_</sub>║ ,  
-−
+ ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║<i>x</i><sub>_u_</sub> − _x_<sub>_v_</sub>║ ,    
+
 where _x_ ∈  _H_<sup>_V_</sup> for some base vector space _H_, _f_ is differentiable, and for all _v_ ∈ _V_, _g_<sub>_v_</sub> admits _directional derivatives_ on every points of its domain and every directions.  
 
-The cut-pursuit algorithm seeks partitions __*V*__ = (_U_<sub>1</sub>,...,_U_<sub>|_V_|</sub>) of the set of vertices _V_, constituing the constant connected components of the solution, by successively solving the corresponding reduced problem with
+The cut-pursuit algorithm seeks partitions __*V*__ = (_U_<sub>1</sub>,...,_U_<sub>|_V_|</sub>) of the set of vertices _V_, constituing the constant connected components of the solution, by successively solving the corresponding problem, structured over the reduced graph __*G*__ = (__*V*__, __*E*__), that is
 
-    _F_( ∑<sub>_U_ ∈ __*V*__</sub> _x_<sub>_U_</sub> 1<sub>_U_</sub>) ,  
+  arg min<sub>_x_ ∈ ℝ<sup>__*V*__</sup></sub>
+    _F_( ∑<sub>_U_ ∈ __*V*__</sub> _x_<sub>_U_</sub> 1<sub>_U_</sub>) ,  
 
-structured over the reduced graph __*G*__ = (__*V*__, __*E*__), and then refining the partition.  
+and then refining the partition.  
 A key requirement is thus the ability to solve the reduced problem, which often have the exact same structure as the original one, but with much less vertices |__*V*__| ≪ |_V_|. If the solution of the original problem has only few constant connected components in comparison to the number of vertices, the cut-pursuit strategy can speed-up minimization by several order of magnitude.  
 The [preconditioned forward-Douglas–Rachford](https://1a7r0ch3.github.io/pgfb/) splitting algorithm is often well suited for such minimization, when the functionals are convex. We provide also mex API for using it directly to solve the original problem; just remove the prefix `CP_` in the methods listed below.  
 
