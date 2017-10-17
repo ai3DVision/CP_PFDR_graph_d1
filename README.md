@@ -6,7 +6,7 @@ Parallel implementation with OpenMP API.
 This extension of the [cut-pursuit algorithm](https://github.com/loicland/cut-pursuit) allows to minimize functionals structured over a graph _G_ = (_V_, _E_)
 
     _F_(_x_) = _f_(_x_) + ∑<sub>_v_ ∈ _V_</sub> _g_<sub>_v_</sub>(_x_<sub>_v_</sub>) +
- ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║ _x_<sub>_u_</sub> − _x_<sub>_v_</sub>║ ,  
+ ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║<i>x</i><sub>_u_</sub> − _x_<sub>_v_</sub>║ ,  
 −
 where _x_ ∈  _H_<sup>_V_</sup> for some base vector space _H_, _f_ is differentiable, and for all _v_ ∈ _V_, _g_<sub>_v_</sub> admits _directional derivatives_ on every points of its domain and every directions.  
 
@@ -27,7 +27,7 @@ We provide implementations for a wide range of applications in convex cases, oft
 ### Quadratic functional with ℓ<sub>1</sub>-norm regularisation
 The base space is _H_ = ℝ, and the general form is  
 
-    _F_(_x_) = 1/2 ║ _y_ − _A x_║<sup>2</sup> +
+    _F_(_x_) = 1/2 ║<i>y</i> − _A_ _x_║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _λ_<sup>(ℓ)</sup><sub>_v_</sub> |_x_<sub>_v_</sub>| +
  ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sup>(δ)</sup><sub>_u_,_v_</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
@@ -46,12 +46,12 @@ with precomputations by _A_<sup>\*</sup>
 ### Quadratic functional with box constraint
 The base space is _H_ = ℝ, and the general form is  
 
-    _F_(_x_) = 1/2 ║ _y_ − _A x_║<sup>2</sup> +
- ∑<sub>_v_ ∈ _V_</sub> _ι_<sub>\[_m_,_M_\]</sub>(_x_<sub>_v_</sub>) °
+    _F_(_x_) = 1/2 ║<i>y</i> − _A_ _x_║<sup>2</sup> +
+ ∑<sub>_v_ ∈ _V_</sub> _ι_<sub>\[_m_,_M_\]</sub>(_x_<sub>_v_</sub>) +
  ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sup>(δ)</sup><sub>_u_,_v_</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
 
-where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>n</sup> → ℝ<sup>_V_</sup> is a linear operator, _λ_<sup>(δ)</sup> ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>\[_m_,_M_\]</sub> is the convex indicator of \[_m_,_M_\] : x → 0 if m ≤ x ≤ M, and +∞ otherwise.  
+where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>n</sup> → ℝ<sup>_V_</sup> is a linear operator, _λ_<sup>(δ)</sup> ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>\[_m_,_M_\]</sub> is the convex indicator of \[_m_,_M_\] : x ↦ 0 if m ≤ x ≤ M, and +∞ otherwise.  
 
 Currently, _A_ must be provided as a matrix.  
 There are several particular cases:  
@@ -79,7 +79,7 @@ The following loss functionals are available, all implemented in the routine
  - smoothed Kullback–Leibler for some _α_, ∑<sub>_v_ ∈ _V_</sub>
 KL(_α_ _u_ + (1 − _α_) _y_<sub>_v_</sub>, _α_ _u_ + (1 − _α_) _x_<sub>_v_</sub>),
 where _u_ ∈ ℝ<sup>_K_</sup> is the uniform discrete distribution over _K_, and
-KL(_p_,_q_) = ∑<sub>_k_ ∈ _K_</sub> _p_<sub>_k_</sub> log(_p_<sub>_k_</sub>/_q_<sub>_k_</sub>).  
+KL(_p_, _q_) = ∑<sub>_k_ ∈ _K_</sub> _p_<sub>_k_</sub> log(_p_<sub>_k_</sub>/_q_<sub>_k_</sub>).  
 
 ## Mex Routines
 Within directory mex/  
