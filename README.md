@@ -6,7 +6,7 @@ Parallel implementation with OpenMP API.
 This extension of the [cut-pursuit algorithm](https://github.com/loicland/cut-pursuit) allows to minimize functionals structured over a graph _G_ = (_V_, _E_)
 
     _F_(_x_) = _f_(_x_) + ∑<sub>_v_ ∈ _V_</sub> _g_<sub>_v_</sub>(_x_<sub>_v_</sub>) +
- ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║_x_<sub>_u_</sub> − _x_<sub>_v_</sub>║ ,  
+ ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║ _x_<sub>_u_</sub> − _x_<sub>_v_</sub>║ ,  
 −
 where _x_ ∈  _H_<sup>_V_</sup> for some base vector space _H_, _f_ is differentiable, and for all _v_ ∈ _V_, _g_<sub>_v_</sub> admits _directional derivatives_ on every points of its domain and every directions.  
 
@@ -27,7 +27,7 @@ We provide implementations for a wide range of applications in convex cases, oft
 ### Quadratic functional with ℓ<sub>1</sub>-norm regularisation
 The base space is _H_ = ℝ, and the general form is  
 
-    _F_(_x_) = 1/2 ║_y_ − _A x_║<sup>2</sup> +
+    _F_(_x_) = 1/2 ║ _y_ − _A x_║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _λ_<sup>(ℓ)</sup><sub>_v_</sub> |_x_<sub>_v_</sub>| +
  ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sup>(δ)</sup><sub>_u_,_v_</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
@@ -46,7 +46,7 @@ with precomputations by _A_<sup>\*</sup>
 ### Quadratic functional with box constraint
 The base space is _H_ = ℝ, and the general form is  
 
-    _F_(_x_) = 1/2 ║_y_ − _A x_║<sup>2</sup> +
+    _F_(_x_) = 1/2 ║ _y_ − _A x_║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _ι_<sub>\[_m_,_M_\]</sub>(_x_<sub>_v_</sub>) °
  ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sup>(δ)</sup><sub>_u_,_v_</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
