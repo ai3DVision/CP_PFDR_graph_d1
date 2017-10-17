@@ -8,12 +8,12 @@ This extension of the [cut-pursuit algorithm](https://github.com/loicland/cut-pu
     _F_(_x_) = _f_(_x_) + ∑<sub>_v_ ∈ _V_</sub> _g_<sub>_v_</sub>(_x_<sub>_v_</sub>) +
  ∑<sub>_u_,_v_ ∈ _E_</sub> _λ_<sub>_u_,_v_</sub> ║<i>x</i><sub>_u_</sub> − _x_<sub>_v_</sub>║ ,    
 
-where _x_ ∈  _H_<sup>_V_</sup> for some base vector space _H_, _f_ is differentiable, and for all _v_ ∈ _V_, _g_<sub>_v_</sub> admits _directional derivatives_ on every points of its domain and every directions.  
+where _x_ ∈ ℍ<sup>_V_</sup> for some base vector space ℍ, _f_ is differentiable, and for all _v_ ∈ _V_, _g_<sub>_v_</sub> admits _directional derivatives_ on every points of its domain and every directions.  
 
 The cut-pursuit algorithm seeks partitions __*V*__ = (_U_<sub>1</sub>,...,_U_<sub>|_V_|</sub>) of the set of vertices _V_, constituing the constant connected components of the solution, by successively solving the corresponding problem, structured over the reduced graph __*G*__ = (__*V*__, __*E*__), that is
 
-  arg min<sub>_x_ ∈ ℝ<sup>__*V*__</sup></sub>
-    _F_( ∑<sub>_U_ ∈ __*V*__</sub> _x_<sub>_U_</sub> 1<sub>_U_</sub>) ,  
+  arg min<sub>_ξ_ ∈ ℍ<sup>__*V*__</sup></sub>
+    _F_(_x_) ,   such that ∀ _U_ ∈ __*V*__, ∀ _u_ ∈ _U_, _x_<sub>_u_</sub> = _ξ_<sub>_U_</sub> ,
 
 and then refining the partition.  
 A key requirement is thus the ability to solve the reduced problem, which often have the exact same structure as the original one, but with much less vertices |__*V*__| ≪ |_V_|. If the solution of the original problem has only few constant connected components in comparison to the number of vertices, the cut-pursuit strategy can speed-up minimization by several order of magnitude.  
@@ -26,7 +26,7 @@ For some nonconvex cases, where the norm on the difference in the graph total va
 We provide implementations for a wide range of applications in convex cases, often used in signal processing or machine learning. We specify here the mex API, but the C/C++ routines are available separately (see below, § Mex Routines).  
 
 ### Quadratic functional with ℓ<sub>1</sub>-norm regularisation
-The base space is _H_ = ℝ, and the general form is  
+The base space is ℍ = ℝ, and the general form is  
 
     _F_(_x_) = 1/2 ║<i>y</i> − _A_ _x_║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _λ_<sup>(ℓ)</sup><sub>_v_</sub> |_x_<sub>_v_</sub>| +
@@ -45,7 +45,7 @@ with precomputations by _A_<sup>\*</sup>
 `CP_PFDR_graph_l22_d1_l1_mex`  
 
 ### Quadratic functional with box constraint
-The base space is _H_ = ℝ, and the general form is  
+The base space is ℍ = ℝ, and the general form is  
 
     _F_(_x_) = 1/2 ║<i>y</i> − _A_ _x_║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _ι_<sub>\[_m_,_M_\]</sub>(_x_<sub>_v_</sub>) +
@@ -63,7 +63,7 @@ with precomputations by _A_<sup>\*</sup>
 `CP_PFDR_graph_l22_d1_bounds_mex`  
 
 ### Separable loss with simplex constraint
-The base space is _H_ = ℝ<sup>_K_</sup>, where _K_ is a set of labels, and the general form is  
+The base space is ℍ = ℝ<sup>_K_</sup>, where _K_ is a set of labels, and the general form is  
 
     _F_(_x_) = f(_y_, _x_) +
  ∑<sub>_v_ ∈ _V_</sub> _ι_<sub>_Δ_<sub>_K_</sub></sub>(_x_<sub>_v_</sub>) +
