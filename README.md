@@ -28,7 +28,7 @@ We provide implementations for a wide range of applications in convex cases, oft
 ### Quadratic functional with ℓ<sub>1</sub>-norm regularisation
 The base space is ℍ = ℝ, and the general form is  
 
-    _F_(_x_) = 1/2 ║<i>y</i> − _A_ _x_║<sup>2</sup> +
+    _F_(_x_) = 1/2 ║<i>y</i> − _A_<i>x</i>║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _λ_<sup>(ℓ)</sup><sub>_v_</sub> |_x_<sub>_v_</sub>| +
  ∑<sub>(_u_,_v_)∈_E_</sub> _λ_<sup>(δ)</sup><sub>(_u_,_v_)</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
@@ -47,12 +47,12 @@ with precomputations by _A_<sup>\*</sup>
 ### Quadratic functional with box constraint
 The base space is ℍ = ℝ, and the general form is  
 
-    _F_(_x_) = 1/2 ║<i>y</i> − _A_ _x_║<sup>2</sup> +
+    _F_(_x_) = 1/2 ║<i>y</i> − _A_ <i>x</i>║<sup>2</sup> +
  ∑<sub>_v_ ∈ _V_</sub> _ι_<sub>\[_m_,_M_\]</sub>(_x_<sub>_v_</sub>) +
  ∑<sub>(_u_,_v_)∈_E_</sub> _λ_<sup>(δ)</sup><sub>(_u_,_v_)</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
 
-where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>n</sup> → ℝ<sup>_V_</sup> is a linear operator, _λ_<sup>(δ)</sup> ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>\[_m_,_M_\]</sub> is the convex indicator of \[_m_,_M_\] : x ↦ 0 if m ≤ x ≤ M, and +∞ otherwise.  
+where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>n</sup> → ℝ<sup>_V_</sup> is a linear operator, _λ_<sup>(δ)</sup> ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>\[_m_,_M_\]</sub> is the convex indicator of \[_m_,_M_\] : x ↦ 0 if _m_ ≤ _x_ ≤ _M_, and +∞ otherwise.  
 
 Currently, _A_ must be provided as a matrix.  
 There are several particular cases:  
