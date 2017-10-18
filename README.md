@@ -83,17 +83,17 @@ where _u_ ∈ ℝ<sup>_K_</sup> is the uniform discrete distribution over _K_, a
 KL(_p_, _q_) = ∑<sub>_k_ ∈ _K_</sub> _p_<sub>_k_</sub> log(_p_<sub>_k_</sub>/_q_<sub>_k_</sub>).  
 
 ## Mex Routines
-Within directory mex/  
-    C/C++ sources are in directory src/  
-    headers are in directory include/  
-    mex API are in directory api/  
-    some documentation in directory doc/
+Within directory `mex/`  
+    C/C++ sources are in directory `src/`  
+    headers are in directory `include/`  
+    mex API are in directory `api/`  
+    some documentation in directory `doc/`  
 
 See `compile_mex.m` for typical UNIX compilation commands.
 
 ## Documentation
-The mex interfaces are documented in mex/doc/ within dedicated `.m` files.  
-The C/C++ routines are documented in mex/include/ within the corresponding headers.  
+The mex interfaces are documented in `mex/doc/` within dedicated `.m` files.  
+The C/C++ routines are documented in `mex/include/` within the corresponding headers.  
 
 ## References
 H. Raguet and L. Landrieu, Cut-pursuit algorithm for nonsmooth functionals regularized by graph total variation, in preparation.
