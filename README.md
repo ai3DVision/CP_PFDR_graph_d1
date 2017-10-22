@@ -33,8 +33,8 @@ The base space is ℍ = ℝ, and the general form is
  ∑<sub>(_u_,_v_) ∈ _E_</sub> _λ_<sup>(δ)</sup><sub>(_u_,_v_)</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
 
-where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>n</sup> → ℝ<sup>V</sup> is a linear operator, and 
-_λ_<sup>(ℓ)</sup> ∈ ℝ<sup>V</sup> and _λ_<sup>(δ)</sup> ∈ ℝ<sup>E</sup> are regularization weights.  
+where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>_n_</sup> → ℝ<sup>_V_</sup> is a linear operator, and 
+_λ_<sup>(ℓ)</sup> ∈ ℝ<sup>_V_</sup> and _λ_<sup>(δ)</sup> ∈ ℝ<sup>_E_</sup> are regularization weights.  
 
 Currently, _A_ must be provided as a matrix.  
 There are several particular cases:  
@@ -52,7 +52,7 @@ The base space is ℍ = ℝ, and the general form is
  ∑<sub>(_u_,_v_) ∈ _E_</sub> _λ_<sub>(_u_,_v_)</sub>
  |_x_<sub>_u_</sub> − _x_<sub>_v_</sub>| ,  
 
-where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>n</sup> → ℝ<sup>_V_</sup> is a linear operator, _λ_ ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>\[_m_,_M_\]</sub> is the convex indicator of \[_m_,_M_\] : x ↦ 0 if _m_ ≤ _x_ ≤ _M_, and +∞ otherwise.  
+where _y_ ∈ ℝ<sup>_n_</sup>, and _A_: ℝ<sup>_n_</sup> → ℝ<sup>_V_</sup> is a linear operator, _λ_ ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>\[_m_,_M_\]</sub> is the convex indicator of \[_m_,_M_\] : x ↦ 0 if _m_ ≤ _x_ ≤ _M_, and +∞ otherwise.  
 
 Currently, _A_ must be provided as a matrix.  
 There are several particular cases:  
@@ -70,7 +70,7 @@ The base space is ℍ = ℝ<sup>_K_</sup>, where _K_ is a set of labels, and the
  ∑<sub>(_u_,_v_) ∈ _E_</sub> _λ_<sub>(_u_,_v_)</sub> +
  ∑<sub>_k_ ∈ _K_</sub> |_x_<sub>_u_,_k_</sub> − _x_<sub>_v_,_k_</sub>| ,  
 
-where _y_ ∈ ℝ<sup>_K_ ⨯ _V_</sup>, _f_ is a loss functional (see below), _λ_ ∈ ℝ<sup>E</sup> are regularization weights, and _ι_<sub>_Δ_<sub>_K_</sub></sub> is the convex indicator of the simplex
+where _y_ ∈ ℝ<sup>_K_ ⨯ _V_</sup>, _f_ is a loss functional (see below), _λ_ ∈ ℝ<sup>_E_</sup> are regularization weights, and _ι_<sub>_Δ_<sub>_K_</sub></sub> is the convex indicator of the simplex
 _Δ_<sub>_K_</sub> = {_x_ ∈ ℝ<sup>_K_</sup> | ∑<sub>k</sub> x<sub>k</sub> = 1 and ∀ k, x<sub>k</sub> ≥ 0}.  
 
 The following loss functionals are available, all implemented in the routine
