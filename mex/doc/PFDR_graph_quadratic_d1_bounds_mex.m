@@ -17,8 +17,8 @@ function [X, it, Obj, Dif] = PFDR_graph_quadratic_d1_bounds_mex(Y, A, Eu, Ev, La
 % INPUTS: (warning: real numeric type is either single or double, not both)
 % Y          - observations, array of length N (real)
 % A          - matrix, N-by-V array (real)
-% Eu         - for each edge, index of one vertex, array of length E (int32)
-% Ev         - for each edge, index of the other vertex, array of length E (int32)
+% Eu         - for each edge, C-style index of one vertex, array of length E (int32)
+% Ev         - for each edge, C-style index of the other vertex, array of length E (int32)
 %              Every vertex should belong to at least one edge. If it is not the
 %              case, a workaround is to add an edge from the vertex to itself
 %              with a nonzero penalization coefficient.

@@ -19,8 +19,8 @@ function [Cv, rX, CP_it, Time, Obj, Dif] = CP_PFDR_graph_quadratic_d1_l1_mex(Y, 
 % INPUTS: (warning: real numeric type is either single or double, not both)
 % Y          - observations, array of length N (real)
 % A          - matrix, N-by-V array (real)
-% Eu         - for each edge, index of one vertex, array of length E (int32)
-% Ev         - for each edge, index of the other vertex, array of length E (int32)
+% Eu         - for each edge, C-style index of one vertex, array of length E (int32)
+% Ev         - for each edge, C-style index of the other vertex, array of length E (int32)
 % La_d1      - d1 penalization coefficients, array of length E (real)
 % La_l1      - l1 penalization coefficients, array of length V (real)
 %              give only one scalar (0 is fine) for no l1 penalization

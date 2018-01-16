@@ -19,8 +19,8 @@ function [Cv, rX, CP_it, Time, Obj, Dif] = CP_PFDR_graph_l22_d1_bounds_mex(Y, La
 % Y          - observations, array of length V (real)
 % La_l2      - l2 penalization coefficients, array of length V (real)
 %              give only one scalar (1 is fine) for no weights on the l2-norm
-% Eu         - for each edge, index of one vertex, array of length E (int32)
-% Ev         - for each edge, index of the other vertex, array of length E (int32)
+% Eu         - for each edge, C-style index of one vertex, array of length E (int32)
+% Ev         - for each edge, C-style index of the other vertex, array of length E (int32)
 % La_d1      - d1 penalization coefficients, array of length E (real)
 % Bnd        - lower and upper bounds constraints, array of length 2 (real)
 %              set to [-inf inf] for no bounds

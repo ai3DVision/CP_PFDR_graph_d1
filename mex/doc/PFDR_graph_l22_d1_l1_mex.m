@@ -20,8 +20,8 @@ function [X, it, Obj, Dif] = PFDR_graph_l22_d1_l1_mex(Y, La_l2, Eu, Ev, La_d1, L
 % Y          - observations, array of length V (real)
 % La_l2      - l2 penalization coefficients, array of length V (real)
 %              give only one scalar (1 is fine) for no weights on the l2-norm
-% Eu         - for each edge, index of one vertex, array of length E (int32)
-% Ev         - for each edge, index of the other vertex, array of length E (int32)
+% Eu         - for each edge, C-style index of one vertex, array of length E (int32)
+% Ev         - for each edge, C-style index of the other vertex, array of length E (int32)
 %              Every vertex should belong to at least one edge. If it is not the
 %              case, a workaround is to add an edge from the vertex to itself
 %              with a nonzero penalization coefficient.

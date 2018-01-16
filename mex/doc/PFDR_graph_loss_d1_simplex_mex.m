@@ -35,8 +35,8 @@ function [P, it, Obj, Dif] = PFDR_graph_loss_d1_simplex_mex(Q, al, Eu, Ev, La_d1
 %            al >= 1, quadratic:
 %                      f(p) = al/2 ||q - p||_{l2}^2,
 %              with  ||q - p||_{l2}^2 = sum_{k,v} (q_kv - p_kv)^2.
-% Eu       - for each edge, index of one vertex, array of length E (int32)
-% Ev       - for each edge, index of the other vertex, array of length E (int32)
+% Eu       - for each edge, C-style index of one vertex, array of length E (int32)
+% Ev       - for each edge, C-style index of the other vertex, array of length E (int32)
 %            Every vertex should belong to at least one edge. If it is not the
 %            case, the optimal value of an isolated vertex is independent
 %            from the other vertices, so it should be removed from the problem.
