@@ -24,8 +24,8 @@
  *
  * Parallel implementation with OpenMP API.
  *
- * Reference: H. Raguet and L. Landrieu, `Cut-pursuit` algorithm for convex
- * nonsmooth functionals regularized by graph total variation, in preparation.
+ * Reference: H. Raguet and L. Landrieu, Cut-Pursuit Algorithm for Regularizing
+ * Nonsmooth Functionals with Graph Total Variation.
  *
  * Hugo Raguet 2016
  *===========================================================================*/
@@ -50,7 +50,7 @@ template <typename real>
 void free_CPql1_Restart(struct CPql1_Restart<real> *CP_restart);
 
 template <typename real>
-void CP_PFDR_graph_quadratic_d1_l1_duplex(const int V, const int E, const int N, \
+void CP_PFDR_graph_quadratic_d1_l1(const int V, const int E, const int N, \
     int *rV, int *Cv, real **rX, const real *Y, const real *A, \
     const int *Eu, const int *Ev, const real *La_d1, \
     const real *La_l1, const int positivity, \
@@ -90,7 +90,7 @@ void CP_PFDR_graph_quadratic_d1_l1_duplex(const int V, const int E, const int N,
  * [CP]
  * difTol     - stopping criterion on iterate evolution. Algorithm stops if
  *              relative changes of X (in Euclidean norm) is less than difTol.
- *              1e-2 is a conservative value; 1e-3 or less can give better
+ *              1e-5 is a typical value; 1e-6 or less can give better
  *              precision but with longer computational time
  * itMax      - maximum number of iterations (graph cut and subproblem)
  *              10 cuts solve accurately most problems
@@ -127,4 +127,17 @@ void CP_PFDR_graph_quadratic_d1_l1_duplex(const int V, const int E, const int N,
  *              objective is monitored, the first value is not computed (Obj[0]
  *              not written). set to NULL for no warm restart
  *              THIS FUNCTIONALITY HAS NOT BEEN TESTED YET */
+
+/* declaration for version solving steepest ternary descent problem with
+ * two-stages graph */ 
+template <typename real>
+void CP_PFDR_graph_quadratic_d1_l1_duplex(const int V, const int E, const int N, \
+    int *rV, int *Cv, real **rX, const real *Y, const real *A, \
+    const int *Eu, const int *Ev, const real *La_d1, \
+    const real *La_l1, const int positivity, \
+    const real CP_difTol, const int CP_itMax, int *CP_it, \
+    const real PFDR_rho, const real PFDR_condMin, \
+    const real PFDR_difRcd, const real PFDR_difTol, const int PFDR_itMax, \
+    double *Time, real *Obj, real *Dif, const int verbose, \
+    struct CPql1_Restart<real> *CP_restart);
 #endif

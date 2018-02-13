@@ -3,11 +3,11 @@
  *     Ev, La_d1, La_l1, positivity, CP_difTol, CP_itMax, PFDR_rho,
  *     PFDR_condMin, PFDR_difRcd, PFDR_difTol, PFDR_itMax, verbose)
  * 
- *  Hugo Raguet 2016
+ *  Hugo Raguet 2016 modified by Loic Landrieu 2018
  *===========================================================================*/
 
 #include "mex.h"
-#include "../include/CP_PFDR_graph_quadratic_d1_l1_duplex.hpp"
+#include "../include/CP_PFDR_graph_quadratic_d1_l1.hpp"
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {

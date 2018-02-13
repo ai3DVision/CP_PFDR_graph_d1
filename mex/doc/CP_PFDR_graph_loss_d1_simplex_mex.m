@@ -45,10 +45,10 @@ function [Cv, rP, CP_it, Time, Obj, Dif] = CP_PFDR_graph_loss_d1_simplex_mex(Q, 
 %
 % [CP]
 % difTol - stopping criterion on iterate evolution.
-%          If  difTol < 1, algorithm stops if all coordinates of P change by 
-%          less than difTol. If difTol >= 1, algorithm stops if less than
-%          difTol maximum-likelihood labels have changed (not yet
-%          implemented). 1e-1 is a conservative value; 1e-2 or less can give
+%          If difTol < 1, algorithm stops if relative changes of X (in l1 norm)
+%          is less than difTol. If difTol >= 1, algorithm stops if less than
+%          difTol maximum-likelihood labels have changed.
+%          1e-2 is a conservative value; 1e-3 or less can give
 %          better precision but with longer computational time
 % itMax  - maximum number of iterations (graph cut and subproblem)
 %          10 cuts solve accurately most problems
@@ -65,15 +65,15 @@ function [Cv, rP, CP_it, Time, Obj, Dif] = CP_PFDR_graph_loss_d1_simplex_mex(Q, 
 %           If difTol >= 1, reconditioning occurs if less than
 %           difRcd maximum-likelihood labels have changed. difRcd is then 
 %           divided by 10.
-%           0 (no reconditioning) is a conservative value, 10 difTol or 
-%           100 difTol might speed up convergence. reconditioning might 
+%           0 (no reconditioning) is a conservative value, 10*difTol or 
+%           100*difTol might speed up convergence. reconditioning might 
 %           temporarily draw minimizer away from solution, and give bad
 %           subproblem solution
 % difTol  - stopping criterion on iterate evolution.
-%           If  difTol < 1, algorithm stops if all coordinates of P change by 
-%           less than difTol. If difTol >= 1, algorithm stops if less than
-%           difTol maximum-likelihood labels have changed (not yet
-%           implemented). 1e-2*CP_difTol is a conservative value.
+%           If difTol < 1, algorithm stops if relative changes of X (in l1 norm)
+%           is less than difTol. If difTol >= 1, algorithm stops if less than
+%           difTol maximum-likelihood labels have changed.
+%           1e-3*CP_difTol is a conservative value.
 % itMax   - maximum number of iterations
 %           1e4 iterations provides enough precision for most subproblems
 %
@@ -104,8 +104,7 @@ function [Cv, rP, CP_it, Time, Obj, Dif] = CP_PFDR_graph_loss_d1_simplex_mex(Q, 
 %     src/graph.cpp src/maxflow.cpp src/proj_simplex_metric.cpp ...
 %     -output bin/CP_PFDR_graph_loss_d1_simplex_mex
 %
-% Reference: H. Raguet and L. Landrieu, Convex nondifferentiable `cut-pursuit` 
-% for piecewise constant solutions of graph-structured optimization problems,
-% in preparation.
+% Reference: H. Raguet and L. Landrieu, Cut-Pursuit Algorithm for Regularizing
+% Nonsmooth Functionals with Graph Total Variation.
 %
 % Hugo Raguet 2017

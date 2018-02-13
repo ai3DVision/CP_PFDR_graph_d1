@@ -19,8 +19,8 @@ function [Cv, rX, CP_it, Time, Obj, Dif] = CP_PFDR_graph_l22_d1_bounds_mex(Y, La
 % Y          - observations, array of length V (real)
 % La_l2      - l2 penalization coefficients, array of length V (real)
 %              give only one scalar (1 is fine) for no weights on the l2-norm
-% Eu         - for each edge, C-style index of one vertex, array of length E (int32)
-% Ev         - for each edge, C-style index of the other vertex, array of length E (int32)
+% Eu         - for each edge, C-style index of one vertex, array of length E (int)
+% Ev         - for each edge, C-style index of the other vertex, array of length E (int)
 % La_d1      - d1 penalization coefficients, array of length E (real)
 % Bnd        - lower and upper bounds constraints, array of length 2 (real)
 %              set to [-inf inf] for no bounds
@@ -28,8 +28,8 @@ function [Cv, rX, CP_it, Time, Obj, Dif] = CP_PFDR_graph_l22_d1_bounds_mex(Y, La
 % [CP]
 % difTol     - stopping criterion on iterate evolution. Algorithm stops if
 %              relative changes of X (in Euclidean norm) is less than difTol.
-%              1e-2 is a conservative value; 1e-3 or less can give better
-%              precision but with longer computational time
+%              1e-5 is a typical value; 1e-6 or less can give better
+%              precision but with longer computational time.
 % itMax      - maximum number of iterations (graph cut and subproblem)
 %              10 cuts solve accurately most problems
 %
@@ -57,7 +57,7 @@ function [Cv, rX, CP_it, Time, Obj, Dif] = CP_PFDR_graph_l22_d1_bounds_mex(Y, La
 % OUTPUTS:
 % Cv    - assignement of each vertex of the minimizer to an homogeneous connected
 %         component of the graph, numbered from 0 to (rV - 1)
-%         array of length V (int32)
+%         array of length V (int)
 % rX    - values of each homogeneous connected components of the minimizer, 
 %         array of length rV (real)
 %         The actual minimizer is then reconstructed as X = rX(Cv+1);
@@ -78,7 +78,7 @@ function [Cv, rX, CP_it, Time, Obj, Dif] = CP_PFDR_graph_l22_d1_bounds_mex(Y, La
 %     src/graph.cpp src/maxflow.cpp src/operator_norm_matrix.cpp ...
 %     -output bin/CP_PFDR_graph_l22_d1_bounds_mex
 %
-% Reference: H. Raguet and L. Landrieu, `Cut-pursuit` algorithm for convex
-% nonsmooth functionals regularized by graph total variation, in preparation.
+% Reference: H. Raguet and L. Landrieu, Cut-Pursuit Algorithm for Regularizing
+% Nonsmooth Functionals with Graph Total Variation.
 %
 % Hugo Raguet 2016

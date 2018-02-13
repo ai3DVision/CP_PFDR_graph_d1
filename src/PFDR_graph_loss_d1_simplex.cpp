@@ -677,15 +677,15 @@ void PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
             }else{
                 /* max reduction available in C since OpenMP 3.1 and gcc 4.7 */
                 #pragma omp parallel for private(v, a) schedule(static) \
-                    num_threads(ntVK) reduction(max:dif) /* reduction(+:dif) */
+                    num_threads(ntVK) /* reduction(max:dif) */ reduction(+:dif)
                 for (v = 0; v < V*K; v++){
                     a = P_[v] - P[v];
                     if (a < ZERO){ a = -a; }
-                    if (a > dif){ dif = a; } /* max norm */
-                    // dif += a; /* relative l1 norm evolution */
+                    /* if (a > dif){ dif = a; } */ /* max norm */
+                    dif += a; /* relative l1 norm evolution */
                     P_[v] = P[v];
                 }
-                // dif /= V; /* relative l1 norm evolution */
+                dif /= V; /* relative l1 norm evolution */
             }
             if (Dif != NULL){ Dif[it_] = dif; }
         }
