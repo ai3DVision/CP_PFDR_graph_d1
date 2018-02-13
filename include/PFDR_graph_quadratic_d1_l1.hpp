@@ -1,13 +1,15 @@
 /*=============================================================================
  * minimize functional over a graph G = (V, E)
  *
- *       F(x) = 1/2 ||y - x||_{l2,La_l2}^2 + ||x||_{d1,La_d1}  + i_{[m, M]}(x)
+ *        F(x) = 1/2 ||y - A x||^2 + ||x||_{d1,La_d1} + ||x||_{l1,La_l1}
  *
- * where x, y in R^V,
- *      ||x||_{l2,La_l2}^2 = sum_{v in V} la_l2_v (y_v - x_v)^2,
- *      ||x||_{d1,La_d1} = sum_{uv in E} la_d1_uv |x_u - x_v|,
- *      i_{[m, M]}(x) = 0          if for all v in V, m <= x_v <= M,
- *                      +infinity  otherwise
+ * where y in R^N, x in R^V, A in R^{N-by-|V|}
+ *       ||x||_{d1,La_d1} = sum_{uv in E} la_d1_uv |x_u - x_v|,
+ *       ||x||_{l1,La_l1} = sum_{v  in V} la_l1_v |x_v|,
+ *
+ * with the possibility of adding a positivity constraint on the coordinates 
+ * of x,
+ *        F(x) + i_{x >= 0}
  *
  * using preconditioned forward-Douglas-Rachford splitting algorithm.
  *
@@ -22,19 +24,19 @@
  * Parallel implementation with OpenMP API.
  *
  * Reference: H. Raguet, A Note on the Forward-Douglas-Rachford Splitting for
- * Monotone Inclusion and Convex Optimization, to appear.
+ * Monotone Inclusion and Convex Optimization.
  *
  * Hugo Raguet 2016
  *===========================================================================*/
-#ifndef PFDR_GRAPH_QUADRATIC_D1_BOUNDS_H
-#define PFDR_GRAPH_QUADRATIC_D1_BOUNDS_H
+#ifndef PFDR_GRAPH_QUADRATIC_D1_L1_H
+#define PFDR_GRAPH_QUADRATIC_D1_L1_H
 
 typedef enum {SCAL, DIAG} Lipschtype;
 
 template <typename real>
-void PFDR_graph_quadratic_d1_bounds(const int V, const int E, const int N, \
+void PFDR_graph_quadratic_d1_l1(const int V, const int E, const int N, \
     real *X, const real *Y, const real *A, const int *Eu, const int *Ev, \
-    const real *La_d1, const real min, const real max, \
+    const real *La_d1, const real *La_l1, const int positivity, \
     const Lipschtype Ltype, const real *L, const real rho, const real condMin, \
     real difRcd, const real difTol, const int itMax, int *it, \
     real *Obj, real *Dif, const int verbose);
@@ -61,9 +63,9 @@ void PFDR_graph_quadratic_d1_bounds(const int V, const int E, const int N, \
  *              case, a workaround is to add an edge from the vertex to itself
  *              with a nonzero penalization coefficient.
  * La_d1      - d1 penalization coefficients, array of length E
- * min        - lower bound constraint, set to -inf for no bound
- * max        - upper bound constraint, set to inf for no bound
- *              (uses HUGE_VAL or HUGE_VALF from math.h)
+ * La_l1      - l1 penalization coefficients, array of length V
+ *              set to NULL for no l1 penalization
+ * positivity - if nonzero, the positivity constraint is added
  * Ltype      - tells if Lipschitz information L is scalar (SCAL, 0)
  *              or diagonal (DIAG, 1)
  * L          - information on Lipschitzianity of the operator A^t A.
@@ -86,6 +88,8 @@ void PFDR_graph_quadratic_d1_bounds(const int V, const int E, const int N, \
  *              value when using reconditioning
  * difTol     - stopping criterion on iterate evolution. Algorithm stops if
  *              relative changes of X (in Euclidean norm) is less than difTol.
+ *              1e-5 is a typical value; 1e-6 or less can give better
+ *              precision but with longer computational time.
  * itMax      - maximum number of iterations
  * it         - adress of an integer keeping track of iteration number
  * Obj        - if not NULL, records the values of the objective
