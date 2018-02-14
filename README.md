@@ -3,14 +3,14 @@ Routines in C/C++, with mex API for interface with GNU Octave or MATLAB.
 Parallel implementation with OpenMP API.  
 
 ## General problem statement
-This extension of the [cut-pursuit algorithm](https://github.com/loicland/cut-pursuit) allows to minimize functionals structured over a graph _G_ = (_V_, _E_, w)
+This extension of the [cut-pursuit algorithm](https://github.com/loicland/cut-pursuit) minimizes functionals structured over a weighted graph _G_ = (_V_, _E_, _w_)
 
-    _F_(_x_) = _f_(_x_) + ∑<sub>_v_ ∈ _V_</sub> _g_<sub>_v_</sub>(_x_<sub>_v_</sub>) +
+    _F_: _x_ ↦ _f_(_x_) + ∑<sub>_v_ ∈ _V_</sub> _g_<sub>_v_</sub>(_x_<sub>_v_</sub>) +
  ∑<sub>(_u_,_v_) ∈ _E_</sub> _w_<sub>(_u_,_v_)</sub> ║<i>x</i><sub>_u_</sub> − _x_<sub>_v_</sub>║ ,    
 
 where _x_ ∈ ℍ<sup>_V_</sup> for some base vector space ℍ, _f_ is differentiable, and for all _v_ ∈ _V_, _g_<sub>_v_</sub> admits _directional derivatives_ on every points of its domain and every directions.  
 
-The cut-pursuit algorithm seeks partitions __*V*__ = (_U_<sub>1</sub>,...,_U_<sub>|__*V*__|</sub>) of the set of vertices _V_, constituting the constant connected components of the solution, by successively solving the corresponding problem, structured over the reduced graph __*G*__ = (__*V*__, __*E*__), that is
+The cut-pursuit algorithm seeks partitions __*V*__ = {_U_<sub>1</sub>,...,_U_<sub>|__*V*__|</sub>} of the set of vertices _V_, constituting the constant connected components of the solution, by successively solving the corresponding problem, structured over the reduced graph __*G*__ = (__*V*__, __*E*__), that is
 
   arg min<sub>_ξ_ ∈ ℍ<sup>__*V*__</sup></sub>
     _F_(_x_) ,   such that ∀ _U_ ∈ __*V*__, ∀ _u_ ∈ _U_, _x_<sub>_u_</sub> = _ξ_<sub>_U_</sub> ,
