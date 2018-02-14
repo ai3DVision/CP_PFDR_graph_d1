@@ -35,8 +35,8 @@ function [P, it, Obj, Dif] = PFDR_graph_loss_d1_simplex_mex(Q, al, Eu, Ev, La_d1
 %            al >= 1, quadratic:
 %                      f(p) = al/2 ||q - p||_{l2}^2,
 %              with  ||q - p||_{l2}^2 = sum_{k,v} (q_kv - p_kv)^2.
-% Eu       - for each edge, C-style index of one vertex, array of length E (int32)
-% Ev       - for each edge, C-style index of the other vertex, array of length E (int32)
+% Eu       - for each edge, C-style index of one vertex, array of length E (int)
+% Ev       - for each edge, C-style index of the other vertex, array of length E (int)
 %            Every vertex should belong to at least one edge. If it is not the
 %            case, the optimal value of an isolated vertex is independent
 %            from the other vertices, so it should be removed from the problem.
@@ -46,8 +46,8 @@ function [P, it, Obj, Dif] = PFDR_graph_loss_d1_simplex_mex(Q, al, Eu, Ev, La_d1
 % condMin  - positive parameter ensuring stability of preconditioning
 %            1 is a conservative value; 0.1 or 1e-2 might enhance preconditioning
 % difRcd   - reconditioning criterion on iterate evolution.
-%            If difTol < 1, reconditioning occurs if all coordinates of P 
-%            change by less than difRcd. difRcd is then divided by 10.
+%            If difTol < 1, reconditioning occurs if relative changes of X (in
+%            l1 norm) is less than difRcd. difRcd is then divided by 10.
 %            If difTol >= 1, reconditioning occurs if less than
 %            difRcd maximum-likelihood labels have changed. difRcd is then 
 %            divided by 10.
@@ -56,9 +56,11 @@ function [P, it, Obj, Dif] = PFDR_graph_loss_d1_simplex_mex(Q, al, Eu, Ev, La_d1
 %            minimizer away from solution; it is advised to monitor objective
 %            value when using reconditioning
 % difTol   - stopping criterion on iterate evolution.
-%            If  difTol < 1, algorithm stops if all coordinates of P change by 
-%            less than difTol. If difTol >= 1, algorithm stops if less than
+%            If difTol < 1, algorithm stops relative changes of X (in l1 norm)
+%            is less than difTol. If difTol >= 1, algorithm stops if less than
 %            difTol maximum-likelihood labels have changed.
+%            1e-3 is a typical value; 1e-4 or less can give better
+%            precision but with longer computational time.
 % itMax    - maximum number of iterations
 % verbose  - if nonzero, display information on the progress, every 'verbose'
 %            iterations
@@ -79,7 +81,7 @@ function [P, it, Obj, Dif] = PFDR_graph_loss_d1_simplex_mex(Q, al, Eu, Ev, La_d1
 %     src/proj_simplex_metric.cpp ...
 %     -output bin/PFDR_graph_loss_d1_simplex_mex
 %
-% Reference: H. Raguet, A note on the forward-Douglas-Rachford splitting
-% algorithm, and application to convex optimization, to appear.
+% Reference: H. Raguet, A Note on the Forward-Douglas-Rachford Splitting for
+% Monotone Inclusion and Convex Optimization.
 %
 % Hugo Raguet 2016

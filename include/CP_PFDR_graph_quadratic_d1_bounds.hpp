@@ -27,8 +27,8 @@
  *
  * Parallel implementation with OpenMP API.
  *
- * Reference: H. Raguet and L. Landrieu, `Cut-pursuit` algorithm for convex
- * nonsmooth functionals regularized by graph total variation, in preparation.
+ * Reference: H. Raguet and L. Landrieu, Cut-Pursuit Algorithm for Regularizing
+ * Nonsmooth Functionals with Graph Total Variation.
  *
  * Hugo Raguet 2016
  *===========================================================================*/
@@ -93,7 +93,7 @@ void CP_PFDR_graph_quadratic_d1_bounds(const int V, const int E, const int N, \
  * [CP]
  * difTol     - stopping criterion on iterate evolution. Algorithm stops if
  *              relative changes of X (in Euclidean norm) is less than difTol.
- *              1e-2 is a conservative value; 1e-3 or less can give better
+ *              1e-5 is a typical value; 1e-6 or less can give better
  *              precision but with longer computational time
  * itMax      - maximum number of iterations (graph cut and subproblem)
  *              10 cuts solve accurately most problems

@@ -13,8 +13,8 @@
  *
  * Parallel implementation with OpenMP API.
  * 
- * Reference: H. Raguet, A note on the forward-Douglas-Rachford splitting
- * algorithm, and application to convex optimization, to appear.
+ * Reference: H. Raguet, A Note on the Forward-Douglas-Rachford Splitting for
+ * Monotone Inclusion and Convex Optimization.
  * 
  * Hugo Raguet 2016
  *===========================================================================*/
@@ -65,19 +65,21 @@ void PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
  * condMin  - parameter ensuring stability of preconditioning 0 < condMin <= 1
  *            1 is a conservative value; 0.1 or 0.01 might enhance preconditioning
  * difRcd   - reconditioning criterion on iterate evolution.
- *            if difTol < 1, reconditioning occurs if all coordinates of P 
- *            change by less than difRcd. difRcd is then divided by 10.
+ *            if difTol < 1, reconditioning occurs relative changes of X (in l1
+ *            norm) is less than difRcd. difRcd is then divided by 10.
  *            If difTol >= 1, reconditioning occurs if less than
  *            difRcd maximum-likelihood labels have changed. difRcd is then 
  *            divided by 10.
- *            0 (no reconditioning) is a conservative value, 10 difTol or 
- *            100 difTol might speed up convergence. reconditioning might 
+ *            0 (no reconditioning) is a conservative value, 10*difTol or 
+ *            100*difTol might speed up convergence. reconditioning might 
  *            temporarily draw minimizer away from solution; it is advised to 
  *            monitor objective value when using reconditioning
  * difTol   - stopping criterion on iterate evolution.
- *            If  difTol < 1, algorithm stops if all coordinates of P change by 
- *            less than difTol. If difTol >= 1, algorithm stops if less than
- *            difTol maximum-likelihood labels have changed.
+ *            If  difTol < 1, algorithm stops if relative changes of X (in l1
+ *            norm) is less than difTol. If difTol >= 1, algorithm stops if
+ *            less than difTol maximum-likelihood labels have changed.
+ *            1e-3 is a typical value; 1e-4 or less can give better
+ *            precision but with longer computational time.
  * itMax    - maximum number of iterations
  * it       - adress of an integer keeping track of iteration number
  * Obj      - if not NULL, records the value of the objective functional,

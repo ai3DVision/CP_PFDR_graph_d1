@@ -182,7 +182,7 @@ static void preconditioning(const int K, const int V, const int E, \
             for (v = 0; v < V; v++){
                 b = La_f[v];
                 for (k = 0; k < K; k++){
-                    b = (al_K_al_1 + P[v*K+k]);
+                    a = (al_K_al_1 + P[v*K+k]);
                     Ga[v*K+k] = b*(al_K + al_1*Q[v*K+k])/(a*a);
                 }
             }
@@ -676,14 +676,16 @@ void PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
                 }
             }else{
                 /* max reduction available in C since OpenMP 3.1 and gcc 4.7 */
-                #pragma omp parallel for private(v, a) reduction(max:dif) \
-                    schedule(static) num_threads(ntVK)
+                #pragma omp parallel for private(v, a) schedule(static) \
+                    num_threads(ntVK) /* reduction(max:dif) */ reduction(+:dif)
                 for (v = 0; v < V*K; v++){
                     a = P_[v] - P[v];
-                    if (a < -dif){ dif = -a; }
-                    else if (a > dif){ dif = a; }
+                    if (a < ZERO){ a = -a; }
+                    /* if (a > dif){ dif = a; } */ /* max norm */
+                    dif += a; /* relative l1 norm evolution */
                     P_[v] = P[v];
                 }
+                dif /= V; /* relative l1 norm evolution */
             }
             if (Dif != NULL){ Dif[it_] = dif; }
         }

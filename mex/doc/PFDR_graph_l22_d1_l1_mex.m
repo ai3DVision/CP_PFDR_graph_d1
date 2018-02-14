@@ -20,8 +20,8 @@ function [X, it, Obj, Dif] = PFDR_graph_l22_d1_l1_mex(Y, La_l2, Eu, Ev, La_d1, L
 % Y          - observations, array of length V (real)
 % La_l2      - l2 penalization coefficients, array of length V (real)
 %              give only one scalar (1 is fine) for no weights on the l2-norm
-% Eu         - for each edge, C-style index of one vertex, array of length E (int32)
-% Ev         - for each edge, C-style index of the other vertex, array of length E (int32)
+% Eu         - for each edge, C-style index of one vertex, array of length E (int)
+% Ev         - for each edge, C-style index of the other vertex, array of length E (int)
 %              Every vertex should belong to at least one edge. If it is not the
 %              case, a workaround is to add an edge from the vertex to itself
 %              with a nonzero penalization coefficient.
@@ -43,6 +43,8 @@ function [X, it, Obj, Dif] = PFDR_graph_l22_d1_l1_mex(Y, La_l2, Eu, Ev, La_d1, L
 %              value when using reconditioning
 % difTol     - stopping criterion on iterate evolution. Algorithm stops if
 %              relative changes of X (in Euclidean norm) is less than difTol.
+%              1e-5 is a typical value; 1e-6 or less can give better
+%              precision but with longer computational time.
 % itMax      - maximum number of iterations
 % verbose    - if nonzero, display information on the progress, every 'verbose'
 %              iterations
@@ -61,7 +63,7 @@ function [X, it, Obj, Dif] = PFDR_graph_l22_d1_l1_mex(Y, La_l2, Eu, Ev, La_d1, L
 %     src/PFDR_graph_quadratic_d1_l1.cpp ...
 %     -output bin/PFDR_graph_l22_d1_l1_mex
 %
-% Reference: H. Raguet,  A Note on the Forward-Douglas-Rachford Splitting for
-% Monotone Inclusion and Convex Optimization, to appear.
+% Reference: H. Raguet, A Note on the Forward-Douglas-Rachford Splitting for
+% Monotone Inclusion and Convex Optimization.
 % 
 % Hugo Raguet 2016

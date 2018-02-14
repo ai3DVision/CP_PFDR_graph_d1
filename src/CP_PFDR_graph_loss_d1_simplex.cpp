@@ -181,7 +181,7 @@ template <typename real> void free_CPls_Restart(struct CPls_Restart<real> *CP_re
 /* switch between exact directional derivative and an underestimation
  * unfortunately using the actual derivative seems less efficient;
  * maybe more descent directions should be searched */
-#define EXACT_DERIV 0 
+/* #define EXACT_DERIV 0 */ /* not used anymore */
 
 template <typename real>
 void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
@@ -225,16 +225,10 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
         default :
             a = (real) FLT_EPSILON;
     }
-    if (ZERO < CP_difTol && CP_difTol < ONE){
-        b = (CP_difTol < PFDR_difTol) ? CP_difTol : PFDR_difTol;
-    }else if (PFDR_difTol < ONE){
-        b = PFDR_difTol;
-    }else if (CP_difTol >= ONE){
-        b = CP_difTol/V;
-    }else{
-        b = PFDR_difTol/V;
-    }
-    const real eps = (b > ZERO) ? b : a;
+    b = (CP_difTol >= ONE) ? CP_difTol/V : CP_difTol;
+    c = (PFDR_difTol >= ONE) ? PFDR_difTol/V : PFDR_difTol;
+    c = (b < c) ? b : c;
+    const real eps = (ZERO < c < a) ? CP_difTol : a;
 
     /** monitor elapsing time **/
     double timer = 0.;
@@ -256,9 +250,9 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
     rEu = rEv = NULL;
     int *Vc; /* list of vertices within each connected component */
     int *rVc; /* cumulative sum of the components sizes */
-    #if EXACT_DERIV
-        int *Div, *Djv; /* indices for descent directions */
-    #endif
+    /* #if EXACT_DERIV
+        int *Div, *Djv; / * indices for descent directions * /
+    #endif */
     int *rDi, *Djv; /* indices for descent directions */
 
     /***  cut pursuit initialization  ***/
@@ -555,7 +549,7 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
                 for (v = Vc[s = rVc[rv]], t = rVc[rv+1]; s < t; v = Vc[++s]){
                     DfSv = DfS + v*K;
                     k = Djv[v];
-                    /* cost for changing dv to Ui - Uj */
+                    /* cost for changing dv to Uj - Ui */
                     if (k == 0){ G->nodes[v].tr_cap = DfSv[j] - DfSv[i]; }
                     else if (k == n){ G->nodes[v].tr_cap = ZERO; }
                     else if (k > i){ G->nodes[v].tr_cap = DfSv[j] - DfSv[k]; }
@@ -572,7 +566,7 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
                     G->arcs[i].r_cap = G->arcs[i+1].r_cap = ZERO;
                 }else{
                 /* horizontal and source/sink capacities are modified according to
-                 * Kolmogorov & Zabih (2004) ; E(u,v) is decomposed as
+                 * Kolmogorov & Zabih (2004); E(u,v) is decomposed as
                  * E(0,0) | E(0,1)   A|B          0 | 0    0|D-C   0|E
                  * --------------- = --- =  A  + ------- + ----- + --- , E = B+C-A-D
                  * E(1,0) | E(1,1)   C|D         C-A|C-A   0|D-C   0|0
@@ -584,14 +578,14 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
                     k = Djv[v];
                     /* a is E(0,0), b is E(0,1), c is E(1,0), E(1,1) is 0 */
                     a = (j == k) ? ZERO : TWO*La_d1[e];
-                    /* E(0,1) is for changing dv to Ui - Uj while keeping du identical */
-                    if (j == 0){ b = TWO*La_d1[e]; }
-                    else if (j = n){ b = ZERO; }
-                    else{ b = La_d1[e]; }
-                    /* E(1,0) is for changing du to Ui - Uj while keeping dv identical */
-                    if (k == 0){ c = TWO*La_d1[e]; }
-                    else if (k == n){ c = ZERO; }
-                    else{ c = La_d1[e]; }
+                    /* E(0,1) is for changing dv to Uj - Ui while keeping du identical */
+                    /* if (j == n){ b = ZERO; } */
+                        /* impossible with only one alpha-expansion cycle */
+                    /* else{ */ b = TWO*La_d1[e]; /* } */
+                    /* E(1,0) is for changing du to Uj - Ui while keeping dv identical */
+                    /* if (k == n){ b = ZERO; } */
+                        /* impossible with only one alpha-expansion cycle */
+                    /* else{ */ c = TWO*La_d1[e]; /* } */
                     /* arbitrarily chosen orientation: u -> v */
                     G->nodes[u].tr_cap += c - a; /* E(1,0)-E(0,0) = c-a */
                     G->nodes[v].tr_cap -= c; /* E(1,1)-E(1,0) = -c */
@@ -625,10 +619,10 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
 
         /* free steepest cut stuff */
         free(DfS);
-        #if EXACT_DERIV
+        /* #if EXACT_DERIV
             free(Div);
             free(Djv);
-        #endif
+        #endif */
         free(rDi);
         free(Djv);
         if (verbose){ printf("\t%d new activated edge(s).\n", s); FLUSH; }
@@ -739,7 +733,7 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
         /**  compute reduced observations  **/
         *rP = (real*) CALLOC(rV_*K, sizeof(real));
         rQ = (real*) malloc(rV_*K*sizeof(real));
-        if (al == ONE){ rLa_f = (real*) malloc(rV_*sizeof(real)); }
+        if (al > ZERO){ rLa_f = (real*) malloc(rV_*sizeof(real)); }
         #pragma omp parallel for private(rv, s, t, v, Qv, rPv, i, k, a) \
             schedule(static) num_threads(ntVK_rV)
         for (rv = 0; rv < rV_; rv++){
@@ -849,18 +843,22 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
             }else{
                 /* max reduction available in C since OpenMP 3.1 and gcc 4.7 */
                 #pragma omp parallel for private(v, rv, rPu, rPv, d, k) \
-                    reduction(max:dif) schedule(static) num_threads(ntVK)
+                    /* reduction(max:dif) */ reduction(+:dif) \
+                    schedule(static) num_threads(ntVK)
                 for (v = 0; v < V; v++){
                     rv = Cv[v];
                     rPu = (*rP) + rv*K;
                     rPv = rP_ + Cv_[v]*K;
+                    a = ZERO;
                     for (k = 0; k < K; k++){
                         d = rPu[k] - rPv[k];
                         if (d < ZERO){ d = -d; }
-                        if (d > dif){ dif = d; }
+                        /* if (d > dif){ dif = d; } */ /* max norm */
+                        dif += d; /* relative l1 norm evolution */
                     }
                     Cv_[v] = rv;
                 }
+                dif /= V; /* relative l1 norm evolution */
                 rP_ = (real*) realloc(rP_, rV_*K*sizeof(real));
                 for (rv = 0; rv < rV_*K; rv++){ rP_[rv] = (*rP)[rv]; }
             }
