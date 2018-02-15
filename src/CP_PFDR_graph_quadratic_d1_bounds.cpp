@@ -622,7 +622,7 @@ void CP_PFDR_graph_quadratic_d1_bounds(const int V, const int E, const int N, \
             }
             if (i){ /* isolated components must be linked to themselves for PFDR */
                 rEv[rE] = ru;
-                rLa_d1[rE++] = ONE;
+                rLa_d1[rE++] = eps;
             }else{
                 for (; n < rE; n++){ rEc[rEv[n]] = -1; } /* reset rEc */
             }

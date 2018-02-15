@@ -57,9 +57,10 @@ void PFDR_graph_quadratic_d1_bounds(const int V, const int E, const int N, \
  *              set to NULL (and N to zero) for identity matrix
  * Eu         - for each edge, index of one vertex, array of length E
  * Ev         - for each edge, index of the other vertex, array of length E
- *              Every vertex should belong to at least one edge. If it is not the
- *              case, a workaround is to add an edge from the vertex to itself
- *              with a nonzero penalization coefficient.
+ *              Every vertex should belong to at least one edge with a nonzero
+ *              penalization coefficient. If it is not the case, a workaround
+ *              is to add an edge from the vertex to itself with a very small
+ *              penalization coefficient.
  * La_d1      - d1 penalization coefficients, array of length E
  * min        - lower bound constraint, set to -inf for no bound
  * max        - upper bound constraint, set to inf for no bound

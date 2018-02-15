@@ -20,9 +20,10 @@ function [X, it, Obj, Dif] = PFDR_graph_l22_d1_bounds_mex(Y, La_l2, Eu, Ev, La_d
 %              give only one scalar (1 is fine) for no weights on the l2-norm
 % Eu         - for each edge, C-style index of one vertex, array of length E (int)
 % Ev         - for each edge, C-style index of the other vertex, array of length E (int)
-%              Every vertex should belong to at least one edge. If it is not the
-%              case, a workaround is to add an edge from the vertex to itself
-%              with a nonzero penalization coefficient.
+%              Every vertex should belong to at least one edge with a nonzero
+%              penalization coefficient. If it is not the case, the optimal 
+%              value of an isolated vertex is independent from the other 
+%              vertices, so it should be removed from the problem.
 % La_d1      - d1 penalization coefficients, array of length E (real)
 % Bnd        - lower and upper bounds constraints, array of length 2 (real)
 %              set to [-inf inf] for no bounds

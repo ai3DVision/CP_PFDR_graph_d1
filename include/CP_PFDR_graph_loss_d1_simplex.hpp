@@ -76,9 +76,10 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
  *              strictly speaking, those are not required to lie on the simplex
  * Eu         - for each edge, index of one vertex, array of length E
  * Ev         - for each edge, index of the other vertex, array of length E
- *              Every vertex should belong to at least one edge. If it is not the
- *              case, the optimal value of an isolated vertex is independent
- *              from the other vertices, so it should be removed from the problem.
+ *              The graph should be connected, with edges with nonzero
+ *              penalization coefficients. If it is not the case, the optimal
+ *              values on isolated components are independent, so they should
+ *              be computed separately.
  * La_d1      - d1 penalization coefficients, strictly positive, array of length E
  *
  * [CP]

@@ -56,9 +56,10 @@ void PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
  *            no weights La_f are taken into account
  * Eu       - for each edge, index of one vertex, array of length E
  * Ev       - for each edge, index of the other vertex, array of length E
- *            Every vertex should belong to at least one edge. If it is not the
- *            case, the optimal value of an isolated vertex is independent
- *            from the other vertices, so it should be removed from the problem.
+ *            Every vertex should belong to at least one edge with a nonzero
+ *            penalization coefficient. If it is not the case, the optimal 
+ *            value of an isolated vertex is independent from the other 
+ *            vertices, so it should be removed from the problem.
  * La_d1    - d1 penalization coefficients for each edge, array of length E
  * rho      - relaxation parameter, 0 < rho < 2
  *            1 is a conservative value; 1.5 often speeds up convergence

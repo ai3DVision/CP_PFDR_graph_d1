@@ -22,9 +22,10 @@ function [X, it, Obj, Dif] = PFDR_graph_quadratic_d1_l1_AtA_mex(AtY, AtA, Eu, Ev
 % AtA        - matrix (A^t A), V-by-V array (real)
 % Eu         - for each edge, C-style index of one vertex, array of length E (int)
 % Ev         - for each edge, C-style index of the other vertex, array of length E (int)
-%              Every vertex should belong to at least one edge. If it is not the
-%              case, a workaround is to add an edge from the vertex to itself
-%              with a nonzero penalization coefficient.
+%              Every vertex should belong to at least one edge with a nonzero
+%              penalization coefficient. If it is not the case, a workaround
+%              is to add an edge from the vertex to itself with a very small
+%              penalization coefficient.
 % La_d1      - d1 penalization coefficients, array of length E (real)
 % La_l1      - l1 penalization coefficients, array of length V (real)
 %              give only one scalar (0 is fine) for no l1 penalization

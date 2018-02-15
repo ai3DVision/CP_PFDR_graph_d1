@@ -38,9 +38,9 @@ function [Cv, rP, CP_it, Time, Obj, Dif] = CP_PFDR_graph_loss_d1_simplex_mex(Q, 
 %        with  ||q - p||_{l2}^2 = sum_{k,v} (q_kv - p_kv)^2.
 % Eu    - for each edge, C-style index of one vertex, array of length E (int32)
 % Ev    - for each edge, C-style index of the other vertex, array of length E (int32)
-%            Every vertex should belong to at least one edge. If it is not the
-%            case, the optimal value of an isolated vertex is independent
-%            from the other vertices, so it should be removed from the problem.
+%         The graph should be connected, with edges with nonzero penalization
+%         coefficients. If it is not the case, the optimal values on isolated
+%         components are independent, so they should be computed separately.
 % La_d1 - d1 penalization coefficients for each edge, array of length E (real)
 %
 % [CP]

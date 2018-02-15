@@ -228,7 +228,7 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
     b = (CP_difTol >= ONE) ? CP_difTol/V : CP_difTol;
     c = (PFDR_difTol >= ONE) ? PFDR_difTol/V : PFDR_difTol;
     c = (b < c) ? b : c;
-    const real eps = (ZERO < c < a) ? CP_difTol : a;
+    const real eps = (ZERO < c < a) ? c : a;
 
     /** monitor elapsing time **/
     double timer = 0.;
@@ -711,11 +711,11 @@ void CP_PFDR_graph_loss_d1_simplex(const int K, const int V, const int E, \
                     }
                 }
             }
-            if (i){ /* isolated components should be treated separately
+            if (i){ /* isolated components should be treated separately!
                      * for now; we just link them to themselves to ensure that
                      * they will be taken into account by PFDR */
                 rEv[rE] = ru;
-                rLa_d1[rE++] = ONE;
+                rLa_d1[rE++] = eps;
             }else{
                 for (; n < rE; n++){ rEc[rEv[n]] = -1; } /* reset rEc */
             }
