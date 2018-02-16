@@ -94,6 +94,16 @@ See `compile_mex.m` for typical UNIX compilation commands.
 The mex interfaces are documented in `mex/doc/` within dedicated `.m` files.  
 The C/C++ routines are documented in `include/` within the corresponding headers.  
 
+## Python interface
+
+Make sure that your version of boost is at least 1.63. Compile the library with:
+```
+cmake .
+make
+```
+
+Read the header of ```/src/CP_PFDR_graph.cpp``` and see ```src/ examples.py``` for usage. 
+
 ## References
 H. Raguet and L. Landrieu, [Cut-pursuit Algorithm for Regularizing Nonsmooth Functionals with Graph Total Variation](https://1a7r0ch3.github.io/cp/).
 
