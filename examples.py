@@ -14,13 +14,20 @@ obs = np.array([10.,0.,10.], dtype = 'float32')
 edge_weight = 3*np.array([1., 1.], dtype = 'float32')
 A = np.array([[2, 0., 0,], [0., 2., 0,], [0., 0., 2,]], dtype = 'float32')
 l1_weight = 0.5 * np.array([1., 1., 1.], dtype = 'float32')
+positivity = 0
+speed = 2 #fast
 
 #all the following calls give the same results:
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 0, 2)
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, 0.5, 0, 2)
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, 3, A, 0.5, 0, 2)
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, 3, np.array([2, 2., 2,], dtype = 'float32'), 0.5, 0, 2)
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, 3, 2, 0.5, 0, 2)
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, positivity, speed)
+print(rX[cV])
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, 0.5, positivity, speed)
+print(rX[cV])
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, 3, A, 0.5, positivity, speed)
+print(rX[cV])
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, 3, np.array([2, 2., 2,], dtype = 'float32'), positivity, speed)
+print(rX[cV])
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, 3, 2, positivity, speed)
+print(rX[cV])
 
 #EEG example
 #see ``Cut-Pursuit Algorithm for Regularizing Nonsmooth Functionals with 
@@ -38,11 +45,11 @@ A = np.array(eeg["Phi"], dtype='f8')
 l1_weight = np.array(eeg["La_l1"][:,0], dtype='f8')
 
 start = timer()
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 0, 0)
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 1, 0)
 print("slow setting = %f" % (timer()-start))
 start = timer()
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 0, 1)
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 1, 1)
 print("standard setting = %f" % (timer()-start))
 start = timer()
-cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 0, 2)
+cV, rX = libCP.CP_PFDR_graph(obs, source, target, edge_weight, A, l1_weight, 1, 2)
 print("fast setting = %f" % (timer()-start))
