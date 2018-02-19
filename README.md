@@ -116,7 +116,8 @@ Currently, only the problem described in [§ Quadratic functional with ℓ<s
 
 Make sure that your version of boost is at least 1.63. Compile the library with:   
 
-    cmake .   
+    cd python 
+    cmake .
     make   
 
 Read the header of `/src/CP_PFDR_graph.cpp` and see `src/ examples.py` for usage. 
