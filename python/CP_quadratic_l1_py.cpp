@@ -70,6 +70,15 @@
 #include "boost/tuple/tuple.hpp"
 #include <../include/CP_PFDR_graph_quadratic_d1_l1.hpp>
 
+#define DEFAULT_positivity ((int) 0)
+#define DEFAULT_PFDR_rho ((double) 1.0)
+#define DEFAULT_PFDR_condMin ((double) 1e-3)
+#define DEFAULT_CP_difTol ((double) 1e-3)
+#define DEFAULT_PFDR_difRcd ((double) 0)
+#define DEFAULT_PFDR_difTol ((double) 1e-4)
+#define DEFAULT_CP_itMax ((int) 10)
+#define DEFAULT_PFDR_itMax ((int) 1e4)
+#define DEFAULT_verbose ((int) 0)
 
 namespace bpn = boost::python::numpy;
 namespace bp =  boost::python;
@@ -367,29 +376,53 @@ BOOST_PYTHON_MODULE(libCP)
 {
     _import_array();
     bpn::initialize();
-    bp::def("CP_quadratic_l1", CP_quadratic_l1, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_1, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_2, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_3, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_4, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_5, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_6, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
-    bp::def("CP_quadratic_l1", CP_quadratic_l1_7, (bp::args("positivity")=0, bp::args("PFDR_rho")=1.0
-            , bp::args("PFDR_condMin")=1e-3, bp::args("CP_difTol")=1e-3, bp::args("PFDR_difRcd")=0
-            , bp::args("PFDR_difTol")=1e-4, bp::args("CP_itMax")=1-4, bp::args("PFDR_itMax")=10, bp::args("verbose")=0));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_1
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_2
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_3
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_4
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_5
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_6
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
+    bp::def("CP_quadratic_l1", CP_quadratic_l1_7
+            , (bp::args("positivity")=DEFAULT_positivity, bp::args("PFDR_rho")=DEFAULT_PFDR_rho
+            , bp::args("PFDR_condMin")=DEFAULT_PFDR_condMin, bp::args("CP_difTol")=DEFAULT_CP_difTol
+            , bp::args("PFDR_difRcd")=DEFAULT_PFDR_difRcd, bp::args("PFDR_difTol")=DEFAULT_PFDR_difTol
+            , bp::args("CP_itMax")=DEFAULT_CP_itMax, bp::args("PFDR_itMax")=DEFAULT_PFDR_itMax
+            , bp::args("verbose")=DEFAULT_verbose));
 }
 
