@@ -54,7 +54,7 @@ static void print_progress(int it, int itMax, double t, \
                            const int rV, const int rE, \
                            const real dif, const real difTol)
 {
-    printf("\n\tCut pursuit iteration %d (max. %d)\n", it, itMax, t);
+    printf("\n\tCut pursuit iteration %d (max. %d)\n", it, itMax);
     if (difTol > ZERO){
         printf("\titerate evolution %g (tol. %g)\n", dif, difTol);
     }

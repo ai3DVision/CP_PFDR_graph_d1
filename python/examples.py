@@ -34,7 +34,7 @@ print(rX[cV])
 #Graph Total Variation`` for details
 #Courtesy of Ahmad Karfoul et Isabelle Merlet, LTSI,INSERM U1099.
 import scipy.io
-eeg = scipy.io.loadmat('data_CP_EEG.mat')
+eeg = scipy.io.loadmat('../data/EEG.mat')
 
 obs = np.array(eeg["y"][:,0], dtype='f8')
 source = np.array(eeg["Eu"][:,0], dtype='uint32')

@@ -52,7 +52,7 @@ template<typename real>
 static void print_progress(int it, int itMax, double t, \
     const int rV, const int rE, const real dif, const real difTol)
 {
-    printf("\n\tCut pursuit iteration %d (max. %d)\n", it, itMax, t);
+    printf("\n\tCut pursuit iteration %d (max. %d)\n", it, itMax);
     if (difTol >= ONE){
         printf("\tlabel evolution %d (tol. %d)\n", (int) dif, (int) difTol);
     }else if (difTol > ZERO){

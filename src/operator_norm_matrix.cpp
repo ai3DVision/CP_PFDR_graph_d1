@@ -98,7 +98,8 @@ real operator_norm_matrix(int M, int N, const real *A, \
 
     /* initialize general purpose variables */
     int i, m, n, p, it;
-    real a, b, n2, *X, *AX, *AA = NULL;
+    real a, b, n2, *X, *AX, *AA;
+    X = AX = AA = NULL;
     const real *An;
     int symmetrized = 0;
 

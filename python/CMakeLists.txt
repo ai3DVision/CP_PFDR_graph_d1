@@ -8,12 +8,13 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 ### Find required packages ###
 ##############################
 
-find_package(Boost 1.65.0 COMPONENTS numpy REQUIRED)
+find_package(Boost 1.65.0 COMPONENTS numpy3 python3 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 find_package(PythonLibs)
 message("PYTHON LIBRARIES ARE " ${PYTHON_LIBRARIES})
+message("Boost LIBRARIES ARE " ${Boost_LIBRARIES})
 INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
 LINK_DIRECTORIES(${PYTHON_LIBRARY_DIRS})
 
@@ -33,5 +34,5 @@ add_library(CP SHARED CP_quadratic_l1_py.cpp ../src/CP_PFDR_graph_quadratic_d1_l
 target_link_libraries(CP
     ${Boost_LIBRARIES}
     ${PYTHON_LIBRARIES}
-    boost_python
+    # boost_python3
     )
