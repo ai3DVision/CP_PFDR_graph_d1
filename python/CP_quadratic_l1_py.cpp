@@ -9,7 +9,7 @@
  *      + sum_{(u,v) in E)}{edge_weight(u,v) * |x_u - x_v|}
  *      + sum_{v in V)}{l1_weight(v) * |x_v|}
  * with positivity constrainty of x
-
+ *
  * SYNTAX
  * cV, rX = CP_quadratic_l1(obs, source, target, edge_weight, A, l1_weight)
  *

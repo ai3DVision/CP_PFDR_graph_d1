@@ -97,33 +97,58 @@ See [§ Available Routines](#available-routines) for the problems currently im
 
 ### Directory tree
     .   
-    ├── src/        C/C++ sources  
-    ├── include/    C/C++ headers   
-    ├── mex/        MEX API   
-    │   └── doc/    some documentation for MEX  
-    ├── python/     python API
-    └── data/       some illustrative data
+    ├── data/       some illustrative data  
+    ├── include/    C/C++ headers, with some doc  
+    ├── octave/     GNU Octave/MATLAB code  
+    │   ├── doc/    some documentation  
+    │   └── mex/    MEX API  
+    ├── python/     python code and API  
+    └── src/        C/C++ sources  
 
 ### C/C++
 The C/C++ routines are documented within the corresponding headers in `include/`.  
 
-### MEX
+### GNU Octave/MATLAB
 The MEX interfaces are documented within dedicated `.m` files in `mex/doc/`.  
 Beware that currently, inputs are not checked, wrong input types and sizes lead to segmentation faults or aberrant results.  
-See `mex/compile_mex.m` for typical UNIX compilation commands.
+See `mex/compile_mex.m` for typical UNIX compilation commands.  
+
+The script `example_EEG_CP.m` exemplifies the problem [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization), on a task of _brain source identification with electroencephalography_, described in the [references](#references).
 
 ### Python
-Currently, only the problem described in [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization) is available.
+Currently, only the routine for the problem described in [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization) is implemented.  
+Some documentation can be found in the header of `CP_quadratic_l1_py.cpp`.  
 
-Make sure that your version of boost is at least 1.63. Compile the library with:   
+Make sure that your version of boost is at least 1.63, and that it is compiled with python support.  
+For compilation with cmake, the provided `CMakeLists.txt` file assumes python 3; this can be easily modified within the file. Compile with  
 
-    cd python 
-    cmake .
+    cd python  
+    cmake .  
     make   
 
-Read the header of `src/CP_PFDR_graph.cpp` and see `src/examples.py` for usage. 
+The script `example_EEG_CP.py` exemplifies the problem [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization), on a task of _brain source identification with electroencephalography_, described in the [references](#references).
+
+<table><tr>
+<td width="10%"></td>
+<td width="20%"> ground truth </td>
+<td width="10%"></td>
+<td width="20%"> raw retrieved activity </td>
+<td width="10%"></td>
+<td width="20%"> identified sources </td>
+<td width="10%"></td>
+</tr><tr>
+<td width="10%"></td>
+<td width="20%"><img src="data/ground_truth.png" width="100%"/></td>
+<td width="10%"></td>
+<td width="20%"><img src="data/brain_activity.png" width="100%"/></td>
+<td width="10%"></td>
+<td width="20%"><img src="data/brain_sources.png" width="100%"/></td>
+<td width="10%"></td>
+</tr></table>
+
+Data courtesy of Ahmad Karfoul and Isabelle Merlet, LTSI, INSERM U1099.  
 
 ## References
-H. Raguet and L. Landrieu, [Cut-pursuit Algorithm for Regularizing Nonsmooth Functionals with Graph Total Variation](https://1a7r0ch3.github.io/cp/).
+[1] H. Raguet and L. Landrieu, [Cut-pursuit Algorithm for Regularizing Nonsmooth Functionals with Graph Total Variation](https://1a7r0ch3.github.io/cp/).
 
-H. Raguet, [A Note on the Forward-Douglas-Rachford Splitting Algorithm for Monotone Inclusion and Convex Optimization](https://1a7r0ch3.github.io/pgfb/).
+[2] H. Raguet, [A Note on the Forward-Douglas-Rachford Splitting Algorithm for Monotone Inclusion and Convex Optimization](https://1a7r0ch3.github.io/fdr/).
