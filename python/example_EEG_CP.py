@@ -67,6 +67,8 @@ support_clean= abs_x > (m/2)
 DS_estimated = 2*sum(support_true * support_estimated)/(sum(support_true) + sum(support_estimated))
 DS_clean = 2*sum(support_true * support_clean)/(sum(support_true) + sum(support_clean))
 
+print("Dice score for raw retrieved activity:  %.2f; processed support: %.2f\n" % (DS_estimated, DS_clean));
+
 #plot the activity
 plot_brain(activity_true, 'ground truth ')
 plot_brain(activity_estimated, 'raw retrieved activity ')
