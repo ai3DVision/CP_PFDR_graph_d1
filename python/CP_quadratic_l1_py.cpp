@@ -31,13 +31,8 @@
  * l1_weight = weight associated with each vertex in the L1 regularization
  *      vector, numpy array of shape (V,)
  *      scalar, in which case all weights are the same
- * positivity : if nonzero, add positivity constraints
- *      scalar
- * speed : define the speed setting
- *      scalar
- *      0 -> slow but precise
- *      1 -> standard
- *      2 -> fast but less precise (for prototyping)
+ * optional parameter (see below) = positivity, PFDR_rho, PFDR_condMin, CP_difTol,
+ *          PFDR_difRcd, PFDR_difTol, CP_itMax, PFDR_itMax, verbose
  *
  * OUPUTS
  * cV = index of the component of each vertex
@@ -46,7 +41,7 @@
  *      numpy array of shape (rV,) with rV the number of constant components
  * x = rX[cV]
  *
- * ARGUMENTS
+ * OPTIONS
  * Modify with caution, see the paper for details.
  * double positivity : if nonzero, add positivity constraints
  * int CP_itMax : maximum number of cut pursuit iterations (default : 10)
@@ -231,8 +226,6 @@ bp::tuple CP_quadratic_l1(const bpn::ndarray & obs, const bpn::ndarray & source,
     //---detect type of inputs ---
     bpn::dtype data_type = obs.get_dtype();
     std::string data_classname = bp::extract<std::string>(bp::str(data_type));
-    std::cout<<"Type detected = " << data_classname <<std::endl;
-
     if (!data_classname.compare("float32") || !data_classname.compare("f4"))
     {
         return CP_quadratic_l1_from_array<float>(N, V, E, bp::len(edge_weight), bp::len(l1_weight), a_mode
