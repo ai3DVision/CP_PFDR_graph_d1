@@ -20,7 +20,7 @@ The cut-pursuit algorithm seeks partitions __*V*__ of the set of vertices _V_, c
 
 and then refining the partition.  
 A key requirement is thus the ability to solve the reduced problem, which often have the exact same structure as the original one, but with much less vertices |__*V*__| ≪ |_V_|. If the solution of the original problem has only few constant connected components in comparison to the number of vertices, the cut-pursuit strategy can speed-up minimization by several order of magnitude.  
-The [preconditioned forward-Douglas–Rachford](https://1a7r0ch3.github.io/pgfb/) splitting algorithm is often well suited for such minimization, when the functionals are convex. We provide also MEX API for using it directly to solve the original problem; just remove the prefix `CP_` in the methods listed below.  
+The [preconditioned forward-Douglas–Rachford](https://1a7r0ch3.github.io/fdr/) splitting algorithm is often well suited for such minimization, when the functionals are convex. We provide also MEX API for using it directly to solve the original problem; just remove the prefix `CP_` in the methods listed below.  
 
 For the nonconvex case where the norm on the difference in the graph total variation is replaced by a ℓ<sub>0</sub> norm, see [L0 cut-pursuit](https://github.com/loicland/cut-pursuit) repository, by Loïc Landrieu.
 
@@ -125,14 +125,14 @@ For compilation with cmake, the provided `CMakeLists.txt` file assumes python 3;
     cd python  
     cmake .  
     make   
-
-The script `example_EEG_CP.py` exemplifies the problem [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization), on a task of _brain source identification with electroencephalography_, described in the [references](#references). The script requires the libraries `matplotlib` (tested with 2.2) and `PyQt4`.
-
+    
 You can compile the library in a given environment by replacing the ```cmake``` command by the following:
 ```
 cmake . -DPYTHON_LIBRARY=$ENV/lib/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$ENV/include/python3.6m -DBOOST_INCLUDEDIR=$ENV/include
 ```
 with ```$ENV``` the path to the target environment (for anaconda it can be found with ```locate anaconda```). Adapt the version of python to the one used in your environment (for anaconda you can find it with ```locate anaconda3/lib/libpython```).
+
+The script `example_EEG_CP.py` exemplifies the problem [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization), on a task of _brain source identification with electroencephalography_, described in the [references](#references). The script requires the libraries `matplotlib` (tested with 2.2) and `PyQt4`.
 
 <table><tr>
 <td width="10%"></td>
