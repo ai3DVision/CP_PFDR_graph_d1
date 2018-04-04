@@ -126,7 +126,13 @@ For compilation with cmake, the provided `CMakeLists.txt` file assumes python 3;
     cmake .  
     make   
 
-The script `example_EEG_CP.py` exemplifies the problem [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization), on a task of _brain source identification with electroencephalography_, described in the [references](#references).
+The script `example_EEG_CP.py` exemplifies the problem [§ Quadratic functional with ℓ<sub>1</sub>-norm regularization](#quadratic-functional-with-ℓ1-norm-regularization), on a task of _brain source identification with electroencephalography_, described in the [references](#references). The script requires the libraries `matplotlib` (tested with 2.2) and `PyQt4`.
+
+You can compile the library in a given environment by replacing the ```cmake``` command by the following:
+```
+cmake . -DPYTHON_LIBRARY=$ENV/lib/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$ENV/include/python3.6m -DBOOST_INCLUDEDIR=$ENV/include
+```
+with ```$ENV``` the path to the target environment (for anaconda it can be found with ```locate anaconda```). Adapt the version of python to the one used in your environment (for anaconda you can find it with ```locate anaconda3/lib/libpython```).
 
 <table><tr>
 <td width="10%"></td>
